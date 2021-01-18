@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "esbuild": "0.8.33",
+    "lodash": "4.17.20"
+  }
+}
