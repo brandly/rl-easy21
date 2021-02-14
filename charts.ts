@@ -2,12 +2,15 @@ import { range } from 'lodash'
 import { init } from './easy21'
 import MonteCarlo from './monte-carlo'
 
-const toFlatList = (samples_): [number, number, number] =>
+const toFlatList = (monte): [number, number, number] =>
   range(1, 11).flatMap((dealer) =>
     range(1, 22).map((player) => {
-      // TODO: getKey
-      const key = `${dealer}$${player}`
-      return [dealer, key in samples_ ? samples_[key].value : 0, player]
+      const value = monte.getValue({
+        dealer: [{ color: 'black', value: dealer }],
+        player: [{ color: 'black', value: player }],
+        terminal: false
+      })
+      return [dealer, value, player]
     })
   )
 
@@ -50,7 +53,7 @@ var chart = new Highcharts.Chart({
     }
   },
   title: {
-    text: 'Draggable box'
+    text: 'easy 21 optimal value function'
   },
   subtitle: {
     text: 'Click and drag the plot area to rotate in space'
