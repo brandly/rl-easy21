@@ -7,5 +7,5 @@ all: node_modules chart.js
 node_modules/: package.json
 	npm install
 
-chart.js: *.ts
-	$(esbuild) --bundle charts.ts > charts.js
+chart.js: *.ts *.tsx
+	$(esbuild) --bundle --define:process.env.NODE_ENV=\"development\" charts.tsx > charts.js
