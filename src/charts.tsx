@@ -4,7 +4,7 @@ const { useState, useEffect } = React
 import { render } from 'react-dom'
 import Plot from 'react-plotly.js'
 import { Layout } from 'plotly.js'
-import { init } from './easy21'
+import * as easy21 from './easy21'
 import MonteCarlo from './monte-carlo'
 
 const toZData = (monte: MonteCarlo): number[][] =>
@@ -42,7 +42,7 @@ const App = () => {
   // TODO: run episodes in a worker?
   const doIt = () => {
     for (let i = 0; i < episodes; i++) {
-      monte.conductEpisode(init())
+      monte.conductEpisode(easy21.init())
     }
     setCompletedCount((count) => count + episodes)
   }
