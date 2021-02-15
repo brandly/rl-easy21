@@ -3,6 +3,7 @@ import * as React from 'react'
 const { useState, useEffect } = React
 import { render } from 'react-dom'
 import Plot from 'react-plotly.js'
+import { Layout } from 'plotly.js'
 import { init } from './easy21'
 import MonteCarlo from './monte-carlo'
 
@@ -20,28 +21,30 @@ const toZData = (monte: MonteCarlo): number[][] =>
 const episodes = 10000
 
 const App = () => {
-  const [monte, setMonte] = useState(new MonteCarlo())
-  const [layout, setLayout] = useState({
+  // tracking this is really to maintain camera position after user moves it
+  const [layout, setLayout] = useState<Partial<Layout>>({
     title: 'easy 21 optimal value function',
-    scene: { camera: { eye: { x: -1.45, y: 1.45, z: 0.85 } } },
+    scene: {
+      camera: { eye: { x: -1.45, y: 1.45, z: 0.85 } },
+      xaxis: { title: 'player sum' },
+      yaxis: { title: 'dealer showing' },
+      zaxis: { title: 'value' }
+    },
     autosize: false,
     width: 600,
     height: 600,
-    margin: {
-      l: 65,
-      r: 50,
-      b: 65,
-      t: 90
-    }
+    margin: { l: 0, r: 0, b: 60, t: 60 }
   })
 
-  const [ran, setRan] = useState(0)
+  const [monte, setMonte] = useState(new MonteCarlo())
+  const [completedCount, setCompletedCount] = useState(0)
 
+  // TODO: run episodes in a worker?
   const doIt = () => {
     for (let i = 0; i < episodes; i++) {
       monte.conductEpisode(init())
     }
-    setRan((ran) => ran + episodes)
+    setCompletedCount((count) => count + episodes)
   }
 
   const [isRunning, setIsRunning] = useState(null)
@@ -68,14 +71,14 @@ const App = () => {
       <button
         onClick={() => {
           setMonte(new MonteCarlo())
-          setRan(0)
+          setCompletedCount(0)
           clearInterval(isRunning)
           setIsRunning(null)
         }}
       >
         reset
       </button>
-      <p>episodes conducted: {ran}</p>
+      <p>episodes conducted: {completedCount}</p>
       <Plot
         data={[
           {
