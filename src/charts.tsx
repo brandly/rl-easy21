@@ -18,10 +18,9 @@ const toZData = (monte: MonteCarlo): number[][] =>
   )
 
 const episodes = 10000
-const monte = new MonteCarlo()
 
 const App = () => {
-  const [date, setDate] = useState(Date.now())
+  const [monte, setMonte] = useState(new MonteCarlo())
   const [layout, setLayout] = useState({
     title: 'easy 21 optimal value function',
     scene: { camera: { eye: { x: -1.45, y: 1.45, z: 0.85 } } },
@@ -66,6 +65,16 @@ const App = () => {
           run episodes
         </button>
       )}
+      <button
+        onClick={() => {
+          setMonte(new MonteCarlo())
+          setRan(0)
+          clearInterval(isRunning)
+          setIsRunning(null)
+        }}
+      >
+        reset
+      </button>
       <p>episodes conducted: {ran}</p>
       <Plot
         data={[
