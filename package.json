@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "watchman-make -p src/*.ts* -t all",
+    "start": "watchman-make -p src/* -t all",
     "deploy": "make && gh-pages --dist dist/"
   },
   "dependencies": {
