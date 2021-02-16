@@ -5,9 +5,9 @@ import { render } from 'react-dom'
 import Plot from 'react-plotly.js'
 import { Layout } from 'plotly.js'
 import * as easy21 from './easy21'
-import MonteCarlo from './monte-carlo'
+import { MonteCarlo, SARSA, Learner } from './monte-carlo'
 
-const toZData = (monte: MonteCarlo): number[][] =>
+const toSurfaceData = (monte: Learner): number[][] =>
   range(0, 11).map((dealer) =>
     range(0, 22).map((player) =>
       monte.getValue({
@@ -82,7 +82,7 @@ const App = () => {
       <Plot
         data={[
           {
-            z: toZData(monte),
+            z: toSurfaceData(monte),
             type: 'surface'
           }
         ]}
