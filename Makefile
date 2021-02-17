@@ -2,7 +2,7 @@
 
 esbuild = ./node_modules/.bin/esbuild
 
-all: dist/ dist/chart.js dist/index.html
+all: dist/ dist/chart.js dist/index.html dist/billion.json
 
 dist/:
 	mkdir -p $@
@@ -12,6 +12,9 @@ dist/chart.js: node_modules src/*.ts src/*.tsx
 
 dist/index.html: src/index.html
 	cp src/index.html $@
+
+dist/billion.json: src/billion.json
+	cp src/billion.json $@
 
 node_modules/: package.json
 	npm install
