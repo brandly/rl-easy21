@@ -1,7 +1,7 @@
 import { range } from 'lodash'
 import { State, Action, cardSum, step, getReward } from './easy21'
 
-type Loc = {
+export type Loc = {
   value: number
   visits: number
 }
@@ -71,7 +71,7 @@ export class MonteCarlo extends Learner {
 
 export class SARSA extends Learner {
   lambda: number
-  constructor({ lambda, n0 }) {
+  constructor({ lambda, n0 }: { lambda: number; n0: number }) {
     super(n0)
     this.lambda = lambda
   }
