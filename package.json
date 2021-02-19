@@ -1,7 +1,8 @@
 {
   "scripts": {
     "start": "watchman-make -p src/* -t all",
-    "deploy": "make && gh-pages --dist dist/"
+    "deploy": "make && gh-pages --dist dist/",
+    "test": "tsc"
   },
   "dependencies": {
     "esbuild": "0.8.33",
@@ -16,6 +17,7 @@
     "@types/react": "17.0.2",
     "@types/react-dom": "17.0.1",
     "@types/react-plotly.js": "2.2.4",
-    "gh-pages": "3.1.0"
+    "gh-pages": "3.1.0",
+    "typescript": "4.1.5"
   }
 }
